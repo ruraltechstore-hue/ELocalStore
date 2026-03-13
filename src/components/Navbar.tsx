@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Store } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,17 +34,12 @@ export default function Navbar() {
 
           {/* Logo + Brand */}
           <Link to="/" className="flex items-center space-x-2">
-            
-            {/* Added Logo */}
+
             <img
               src="/logo-C_KVBLWW.png"
               alt="eLocal Store Logo"
               className="w-10 h-10 object-contain"
             />
-
-            <div className="bg-gradient-to-r from-indigo-600 to-green-500 p-2 rounded-lg">
-              <Store className="w-6 h-6 text-white" />
-            </div>
 
             <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-green-500 bg-clip-text text-transparent">
               eLocal Store
