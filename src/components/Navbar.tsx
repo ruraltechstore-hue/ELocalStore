@@ -31,15 +31,27 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
+
+          {/* Logo + Brand */}
           <Link to="/" className="flex items-center space-x-2">
+            
+            {/* Added Logo */}
+            <img
+              src="/logo-C_KVBLWW.png"
+              alt="eLocal Store Logo"
+              className="w-10 h-10 object-contain"
+            />
+
             <div className="bg-gradient-to-r from-indigo-600 to-green-500 p-2 rounded-lg">
               <Store className="w-6 h-6 text-white" />
             </div>
+
             <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-green-500 bg-clip-text text-transparent">
               eLocal Store
             </span>
           </Link>
 
+          {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
               <Link
@@ -54,6 +66,7 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
+
             <Link
               to="/apply"
               className="bg-gradient-to-r from-indigo-600 to-indigo-700 text-white px-6 py-2 rounded-full hover:shadow-lg transform hover:scale-105 transition-all"
@@ -62,14 +75,17 @@ export default function Navbar() {
             </Link>
           </div>
 
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden text-gray-700"
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
+
         </div>
 
+        {/* Mobile Menu */}
         {isOpen && (
           <div className="md:hidden mt-4 pb-4 space-y-3">
             {navLinks.map((link) => (
@@ -86,6 +102,7 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
+
             <Link
               to="/apply"
               onClick={() => setIsOpen(false)}
