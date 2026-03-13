@@ -1,0 +1,151 @@
+═══════════════════════════════════════════════════════════
+  ELOCALSTORE.COM - HOSTINGER SETUP INSTRUCTIONS
+═══════════════════════════════════════════════════════════
+
+IMPORTANT: Follow these steps IN ORDER for successful deployment
+
+═══════════════════════════════════════════════════════════
+STEP 1: GENERATE GMAIL APP PASSWORD
+═══════════════════════════════════════════════════════════
+
+1. Go to: https://myaccount.google.com/security
+2. Enable "2-Step Verification" if not already enabled
+3. Search for "App passwords" or go to: https://myaccount.google.com/apppasswords
+4. Create new app password:
+   - App: Mail
+   - Device: Other (Custom name) → Enter "Hostinger"
+5. Copy the 16-character password (example: abcd efgh ijkl mnop)
+6. SAVE THIS PASSWORD - You'll need it in Step 4
+
+═══════════════════════════════════════════════════════════
+STEP 2: BUILD THE WEBSITE
+═══════════════════════════════════════════════════════════
+
+On your computer, run:
+  npm run build
+
+This creates a 'dist' folder with all website files.
+
+═══════════════════════════════════════════════════════════
+STEP 3: UPLOAD TO HOSTINGER
+═══════════════════════════════════════════════════════════
+
+Using Hostinger File Manager or FTP:
+
+A) Upload React Build:
+   Upload everything from 'dist' folder to: public_html/
+
+B) Upload PHP Backend:
+   Upload everything from 'public/api' folder to: public_html/api/
+
+C) Upload .htaccess:
+   Upload 'public/.htaccess' to: public_html/.htaccess
+
+Your structure should look like:
+  public_html/
+  ├── index.html
+  ├── assets/
+  ├── .htaccess
+  └── api/
+      ├── config.php
+      ├── contact.php
+      └── phpmailer/
+
+═══════════════════════════════════════════════════════════
+STEP 4: CONFIGURE EMAIL (CRITICAL!)
+═══════════════════════════════════════════════════════════
+
+1. Open file: public_html/api/config.php
+
+2. Find this line:
+   define('SMTP_PASSWORD', 'YOUR_GMAIL_APP_PASSWORD_HERE');
+
+3. Replace YOUR_GMAIL_APP_PASSWORD_HERE with the 16-character
+   password from Step 1 (remove spaces)
+
+   Example:
+   define('SMTP_PASSWORD', 'abcdefghijklmnop');
+
+4. Save the file
+
+5. Verify these lines are correct:
+   define('SMTP_USERNAME', 'elocalstore1@gmail.com');
+   define('CONTACT_EMAIL', 'elocalstore1@gmail.com');
+
+═══════════════════════════════════════════════════════════
+STEP 5: TEST THE CONTACT FORM
+═══════════════════════════════════════════════════════════
+
+1. Visit: https://yourdomain.com/contact
+
+2. Fill out the contact form with test data
+
+3. Click "Send Message"
+
+4. Check inbox: elocalstore1@gmail.com
+
+5. You should receive an email within 1-2 minutes
+
+═══════════════════════════════════════════════════════════
+TROUBLESHOOTING
+═══════════════════════════════════════════════════════════
+
+If emails don't arrive:
+
+1. CHECK APP PASSWORD
+   - Must be Gmail App Password (not regular password)
+   - Remove any spaces from the 16-character code
+   - Verify it's copied correctly in config.php
+
+2. CHECK PHP VERSION
+   - Go to Hostinger Control Panel
+   - PHP Configuration → Select PHP 7.4 or higher
+
+3. ENABLE ERROR DISPLAY (Temporarily)
+   Edit api/config.php:
+   ini_set('display_errors', 1);
+
+   Then submit form and check for error messages
+
+4. TEST SMTP CONNECTION
+   Visit: See DEPLOYMENT_GUIDE.md for test script
+
+5. CONTACT HOSTINGER SUPPORT
+   Ask: "Is outbound SMTP allowed on my plan?"
+
+═══════════════════════════════════════════════════════════
+QUICK CHECKLIST
+═══════════════════════════════════════════════════════════
+
+Before going live:
+□ Gmail App Password generated
+□ Files uploaded to public_html/
+□ API folder uploaded to public_html/api/
+□ .htaccess uploaded
+□ config.php updated with App Password
+□ Contact form tested
+□ Email received at elocalstore1@gmail.com
+□ Franchise form tested
+□ All pages loading correctly
+
+═══════════════════════════════════════════════════════════
+SECURITY NOTES
+═══════════════════════════════════════════════════════════
+
+- Never share your Gmail App Password
+- Never commit config.php with real passwords to Git
+- Keep backups of your configuration
+- Monitor email inbox regularly
+
+═══════════════════════════════════════════════════════════
+SUPPORT
+═══════════════════════════════════════════════════════════
+
+For detailed troubleshooting, see: DEPLOYMENT_GUIDE.md
+
+All forms send to: elocalstore1@gmail.com
+Phone: +91-9492036363
+Address: 14th Floor, Manjeera Trinity Corporate,
+         KPHB Road, Kukatpally, Hyderabad, Telangana
+
+═══════════════════════════════════════════════════════════
