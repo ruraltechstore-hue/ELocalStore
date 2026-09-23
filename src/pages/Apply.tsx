@@ -1,7 +1,10 @@
-import { useState } from 'react';
-import { ChevronRight, ChevronLeft, Check, Upload, User, Briefcase, MapPin, FileText, CheckCircle, Loader } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { ChevronRight, ChevronLeft, Check, Upload, User, Briefcase, MapPin, FileText, CheckCircle, Loader, Plus, X } from 'lucide-react';
+import { franchisePlans } from '../config/constants';
 
 export default function Apply() {
+  const location = useLocation();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     fullName: '',
@@ -11,19 +14,28 @@ export default function Apply() {
     pincode: '',
     franchiseType: '',
     experience: '',
-    locationPreference: '',
+    pincodes: [] as string[],
     investmentReady: false,
     aadhaar: null as File | null,
     pan: null as File | null,
     photo: null as File | null
   });
+
+  useEffect(() => {
+    if (location.state && location.state.pincode) {
+      setFormData(prev => ({
+        ...prev,
+        pincodes: [location.state.pincode]
+      }));
+    }
+  }, [location.state]);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const steps = [
     { number: 1, title: 'Personal Details', icon: User },
-    { number: 2, title: 'Franchise Type', icon: Briefcase },
+    { number: 2, title: 'Franchise Plan', icon: Briefcase },
     { number: 3, title: 'Business Details', icon: MapPin },
     { number: 4, title: 'Investment', icon: FileText },
     { number: 5, title: 'Documents', icon: Upload }
@@ -62,7 +74,7 @@ export default function Apply() {
           pincode: formData.pincode,
           franchiseType: formData.franchiseType,
           experience: formData.experience,
-          locationPreference: formData.locationPreference,
+          pincodes: formData.pincodes,
         }),
       });
 
@@ -83,32 +95,32 @@ export default function Apply() {
 
   if (submitted) {
     return (
-      <div className="pt-16 min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 flex items-center justify-center">
+      <div className="pt-16 min-h-screen bg-brand-white flex items-center justify-center">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-white rounded-3xl shadow-2xl p-12">
+          <div className="bg-brand-gray-50 rounded border border-brand-gray-200 shadow-sm p-12">
             <div className="bg-green-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle className="w-12 h-12 text-green-600" />
             </div>
-            <h2 className="text-4xl font-bold mb-4">Application Submitted!</h2>
-            <p className="text-xl text-gray-600 mb-8">
+            <h2 className="text-4xl font-bold mb-4 uppercase">Application Submitted!</h2>
+            <p className="text-xl text-brand-gray-600 mb-8">
               Thank you for your interest in eLocal Store franchise. Our team will contact you within 24-48 hours.
             </p>
-            <div className="bg-indigo-50 rounded-xl p-6 mb-8">
-              <p className="text-gray-700 mb-2">Your application details have been sent to our WhatsApp support team.</p>
-              <p className="font-semibold text-indigo-600 mb-4">Application ID: ELS{Date.now().toString().slice(-6)}</p>
-              <p className="text-gray-700 mb-4">Complete your payment to activate your franchise:</p>
+            <div className="bg-brand-white rounded p-6 mb-8 border-2 border-brand-black">
+              <p className="text-brand-gray-900 font-bold mb-2">Your application details have been saved.</p>
+              <p className="font-semibold text-brand-red mb-4">Application ID: ELS{Date.now().toString().slice(-6)}</p>
+              <p className="text-brand-gray-600 mb-4 font-medium">To reserve your pincode, please complete your advance payment:</p>
               <a
                 href="https://rzp.io/rzp/2h9roex"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all"
+                className="inline-block bg-brand-red text-brand-white px-8 py-3 rounded font-bold uppercase hover:bg-brand-black transition-colors"
               >
-                Proceed to Payment
+                Pay Advance to Reserve
               </a>
             </div>
             <a
               href="/"
-              className="inline-block bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all"
+              className="inline-block border-2 border-brand-black text-brand-black px-8 py-4 rounded font-bold uppercase hover:bg-brand-black hover:text-brand-white transition-colors"
             >
               Back to Home
             </a>
@@ -119,11 +131,11 @@ export default function Apply() {
   }
 
   return (
-    <div className="pt-16 min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 py-12">
+    <div className="pt-32 pb-12 min-h-screen bg-brand-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Franchise Application</h1>
-          <p className="text-xl text-gray-600">Complete the form to start your journey with eLocal Store</p>
+        <div className="text-center mb-12 mt-8">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-4 uppercase text-brand-black">Franchise Application</h1>
+          <p className="text-xl text-brand-gray-600 font-medium">Complete the form to reserve your pincode and start your journey</p>
         </div>
 
         <div className="mb-12">
@@ -134,8 +146,8 @@ export default function Apply() {
                   <div
                     className={`w-12 h-12 rounded-full flex items-center justify-center font-bold transition-all ${
                       currentStep >= step.number
-                        ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white'
-                        : 'bg-gray-200 text-gray-500'
+                        ? 'bg-brand-black text-brand-white'
+                        : 'bg-brand-gray-100 text-brand-gray-500'
                     }`}
                   >
                     {currentStep > step.number ? (
@@ -144,83 +156,83 @@ export default function Apply() {
                       <step.icon className="w-6 h-6" />
                     )}
                   </div>
-                  <span className={`text-xs mt-2 hidden md:block ${currentStep >= step.number ? 'text-indigo-600 font-semibold' : 'text-gray-500'}`}>
+                  <span className={`text-xs mt-2 hidden md:block uppercase font-bold tracking-wider ${currentStep >= step.number ? 'text-brand-black' : 'text-brand-gray-500'}`}>
                     {step.title}
                   </span>
                 </div>
                 {idx < steps.length - 1 && (
-                  <div className={`h-1 flex-1 mx-2 ${currentStep > step.number ? 'bg-indigo-600' : 'bg-gray-200'}`} />
+                  <div className={`h-1 flex-1 mx-2 ${currentStep > step.number ? 'bg-brand-black' : 'bg-brand-gray-200'}`} />
                 )}
               </div>
             ))}
           </div>
         </div>
 
-        <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12">
+        <div className="bg-brand-gray-50 rounded border border-brand-gray-200 shadow-sm p-8 md:p-12">
           {error && (
-            <div className="mb-6 bg-red-100 border-2 border-red-500 rounded-xl p-4 text-red-800">
+            <div className="mb-6 bg-red-50 border-2 border-brand-red rounded p-4 text-red-800 font-bold">
               {error}
             </div>
           )}
           {currentStep === 1 && (
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold mb-6">Personal Details</h2>
+              <h2 className="text-2xl font-extrabold mb-6 uppercase">Personal Details</h2>
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
+                <label className="block text-sm font-bold text-brand-black mb-2 uppercase">Full Name *</label>
                 <input
                   type="text"
                   name="fullName"
                   value={formData.fullName}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:outline-none"
+                  className="w-full px-4 py-3 border-2 border-brand-gray-200 rounded focus:border-brand-black focus:outline-none"
                   placeholder="Enter your full name"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
+                <label className="block text-sm font-bold text-brand-black mb-2 uppercase">Email Address *</label>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:outline-none"
+                  className="w-full px-4 py-3 border-2 border-brand-gray-200 rounded focus:border-brand-black focus:outline-none"
                   placeholder="your.email@example.com"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Phone Number *</label>
+                <label className="block text-sm font-bold text-brand-black mb-2 uppercase">Phone Number *</label>
                 <input
                   type="tel"
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:outline-none"
+                  className="w-full px-4 py-3 border-2 border-brand-gray-200 rounded focus:border-brand-black focus:outline-none"
                   placeholder="+91 XXXXX XXXXX"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Address *</label>
+                <label className="block text-sm font-bold text-brand-black mb-2 uppercase">Address *</label>
                 <textarea
                   name="address"
                   value={formData.address}
                   onChange={handleInputChange}
                   rows={3}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:outline-none"
+                  className="w-full px-4 py-3 border-2 border-brand-gray-200 rounded focus:border-brand-black focus:outline-none"
                   placeholder="Enter your complete address"
                   required
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Pincode *</label>
+                <label className="block text-sm font-bold text-brand-black mb-2 uppercase">Pincode *</label>
                 <input
                   type="text"
                   name="pincode"
                   value={formData.pincode}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:outline-none"
+                  className="w-full px-4 py-3 border-2 border-brand-gray-200 rounded focus:border-brand-black focus:outline-none"
                   placeholder="Enter 6-digit pincode"
                   maxLength={6}
                   required
@@ -231,44 +243,35 @@ export default function Apply() {
 
           {currentStep === 2 && (
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold mb-6">Choose Franchise Type</h2>
+              <h2 className="text-2xl font-extrabold mb-6 uppercase">Choose Franchise Plan</h2>
               <div className="space-y-4">
-                {[
-                  { value: 'agent', name: 'Agent Franchise', price: '₹82,600', desc: '5 Riders, 1 Pincode' },
-                  { value: 'distributor', name: 'Distributor Franchise', price: '₹1,18,000', desc: '15 Riders, 5 Pincodes', popular: true },
-                  { value: 'super', name: 'Super Distributor', price: '₹2,36,000', desc: 'Unlimited Riders, Entire City' }
-                ].map((franchise) => (
+                {franchisePlans.map((franchise) => (
                   <label
-                    key={franchise.value}
-                    className={`block p-6 border-2 rounded-xl cursor-pointer transition-all ${
-                      formData.franchiseType === franchise.value
-                        ? 'border-indigo-600 bg-indigo-50'
-                        : 'border-gray-200 hover:border-indigo-300'
-                    } ${franchise.popular ? 'ring-2 ring-purple-500' : ''}`}
+                    key={franchise.id}
+                    className={`block p-6 border-2 rounded cursor-pointer transition-all ${
+                      formData.franchiseType === franchise.id
+                        ? 'border-brand-black bg-brand-white shadow-md'
+                        : 'border-brand-gray-200 hover:border-brand-red bg-brand-white'
+                    }`}
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex items-start space-x-4">
                         <input
                           type="radio"
                           name="franchiseType"
-                          value={franchise.value}
-                          checked={formData.franchiseType === franchise.value}
+                          value={franchise.id}
+                          checked={formData.franchiseType === franchise.id}
                           onChange={handleInputChange}
-                          className="mt-1 w-5 h-5 text-indigo-600"
+                          className="mt-1 w-5 h-5 text-brand-black"
                         />
                         <div>
-                          <div className="flex items-center space-x-2">
-                            <h3 className="text-lg font-bold">{franchise.name}</h3>
-                            {franchise.popular && (
-                              <span className="bg-purple-500 text-white text-xs px-2 py-1 rounded-full">Popular</span>
-                            )}
-                          </div>
-                          <p className="text-gray-600">{franchise.desc}</p>
+                          <h3 className="text-lg font-extrabold uppercase">{franchise.name}</h3>
+                          <p className="text-brand-gray-600 font-medium mt-1">{franchise.description}</p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-2xl font-bold text-indigo-600">{franchise.price}</div>
-                        <div className="text-sm text-gray-500">Total Investment</div>
+                        <div className="text-2xl font-black text-brand-black">₹{franchise.basePrice.toLocaleString()}</div>
+                        <div className="text-sm text-brand-gray-500 font-bold">+ 18% GST</div>
                       </div>
                     </div>
                   </label>
@@ -279,14 +282,14 @@ export default function Apply() {
 
           {currentStep === 3 && (
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold mb-6">Business Details</h2>
+              <h2 className="text-2xl font-extrabold mb-6 uppercase">Business Details</h2>
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Business Experience</label>
+                <label className="block text-sm font-bold text-brand-black mb-2 uppercase">Business Experience *</label>
                 <select
                   name="experience"
                   value={formData.experience}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:outline-none"
+                  className="w-full px-4 py-3 border-2 border-brand-gray-200 rounded focus:border-brand-black focus:outline-none font-medium bg-white"
                   required
                 >
                   <option value="">Select your experience</option>
@@ -296,36 +299,82 @@ export default function Apply() {
                   <option value="5+">5+ Years</option>
                 </select>
               </div>
+              
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Preferred Location *</label>
-                <input
-                  type="text"
-                  name="locationPreference"
-                  value={formData.locationPreference}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:outline-none"
-                  placeholder="Enter city/area preference"
-                  required
-                />
+                <div className="flex justify-between items-end mb-2">
+                  <label className="block text-sm font-bold text-brand-black uppercase">
+                    Preferred Pincodes *
+                  </label>
+                  <span className="text-xs font-bold text-brand-gray-500 uppercase tracking-wider bg-brand-gray-100 px-2 py-1 rounded">
+                    {formData.pincodes.length} / {formData.franchiseType === 'single-pincode' ? 1 : formData.franchiseType === 'multi-pincode' ? 5 : 0} Selected
+                  </span>
+                </div>
+                
+                {formData.pincodes.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {formData.pincodes.map((pin, i) => (
+                      <div key={i} className="flex items-center bg-brand-red text-brand-white px-3 py-1 rounded font-bold text-sm tracking-wider">
+                        {pin}
+                        <button 
+                          type="button" 
+                          onClick={() => setFormData(prev => ({ ...prev, pincodes: prev.pincodes.filter((_, idx) => idx !== i) }))}
+                          className="ml-2 text-brand-white/70 hover:text-white"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {(!formData.franchiseType || (formData.franchiseType === 'single-pincode' && formData.pincodes.length < 1) || (formData.franchiseType === 'multi-pincode' && formData.pincodes.length < 5)) && (
+                  <div className="flex space-x-2">
+                    <input
+                      type="text"
+                      id="pincodeInput"
+                      className="flex-1 px-4 py-3 border-2 border-brand-gray-200 rounded focus:border-brand-black focus:outline-none text-brand-black tracking-widest font-bold"
+                      placeholder="Enter 6-digit pincode"
+                      maxLength={6}
+                      pattern="[0-9]{6}"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const input = document.getElementById('pincodeInput') as HTMLInputElement;
+                        if (input && input.value.length === 6 && !formData.pincodes.includes(input.value)) {
+                          setFormData(prev => ({ ...prev, pincodes: [...prev.pincodes, input.value] }));
+                          input.value = '';
+                        }
+                      }}
+                      className="bg-brand-black text-brand-white px-6 py-3 rounded font-bold hover:bg-brand-red transition-colors flex items-center"
+                    >
+                      <Plus className="w-5 h-5 mr-1" /> Add
+                    </button>
+                  </div>
+                )}
+                {!formData.franchiseType && (
+                  <p className="text-xs text-brand-red font-bold mt-2">Please select a franchise plan in Step 2 to add pincodes.</p>
+                )}
               </div>
-              <div className="bg-indigo-50 rounded-xl p-6">
-                <h3 className="font-semibold mb-3">Why Choose eLocal Store?</h3>
-                <ul className="space-y-2 text-sm text-gray-700">
-                  <li className="flex items-start space-x-2">
-                    <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-                    <span>65+ services under one platform</span>
+
+              <div className="bg-brand-white border border-brand-gray-200 rounded p-6 shadow-sm mt-8">
+                <h3 className="font-extrabold uppercase mb-3 text-brand-black">Why Choose eLocal Store?</h3>
+                <ul className="space-y-3 text-sm text-brand-gray-600 font-medium">
+                  <li className="flex items-start space-x-3">
+                    <Check className="w-5 h-5 text-brand-red flex-shrink-0" />
+                    <span>Multiple services under one platform</span>
                   </li>
-                  <li className="flex items-start space-x-2">
-                    <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
+                  <li className="flex items-start space-x-3">
+                    <Check className="w-5 h-5 text-brand-red flex-shrink-0" />
                     <span>Comprehensive training and support</span>
                   </li>
-                  <li className="flex items-start space-x-2">
-                    <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-                    <span>Quick ROI within 5-12 months</span>
+                  <li className="flex items-start space-x-3">
+                    <Check className="w-5 h-5 text-brand-red flex-shrink-0" />
+                    <span>Digital dashboard and management tools</span>
                   </li>
-                  <li className="flex items-start space-x-2">
-                    <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-                    <span>Proven business model</span>
+                  <li className="flex items-start space-x-3">
+                    <Check className="w-5 h-5 text-brand-red flex-shrink-0" />
+                    <span>Proven business model and operations</span>
                   </li>
                 </ul>
               </div>
@@ -334,25 +383,24 @@ export default function Apply() {
 
           {currentStep === 4 && (
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold mb-6">Investment Confirmation</h2>
-              <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl p-8">
-                <h3 className="text-2xl font-bold mb-4">Your Selected Plan</h3>
+              <h2 className="text-2xl font-extrabold mb-6 uppercase">Investment Confirmation</h2>
+              <div className="bg-brand-black text-brand-white rounded p-8 border-l-4 border-brand-red">
+                <h3 className="text-2xl font-black mb-4 uppercase">Your Selected Plan</h3>
                 <div className="space-y-2">
-                  <p className="text-lg">
-                    {formData.franchiseType === 'agent' && 'Agent Franchise - ₹82,600'}
-                    {formData.franchiseType === 'distributor' && 'Distributor Franchise - ₹1,18,000'}
-                    {formData.franchiseType === 'super' && 'Super Distributor - ₹2,36,000'}
-                    {!formData.franchiseType && 'Please select a franchise type'}
+                  <p className="text-xl font-bold">
+                    {formData.franchiseType === 'single-pincode' && 'Single Pincode Plan - ₹1,50,000'}
+                    {formData.franchiseType === 'multi-pincode' && 'Multi-Pincode Plan - ₹2,00,000'}
+                    {!formData.franchiseType && 'Please select a franchise plan'}
                   </p>
-                  <p className="text-white/80">Includes 18% GST</p>
+                  <p className="text-brand-gray-300 font-medium">+ 18% GST applicable</p>
                 </div>
               </div>
-              <div className="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-6">
-                <h4 className="font-semibold text-yellow-800 mb-3">Payment Information</h4>
-                <p className="text-sm text-gray-700 mb-4">
-                  Payment details will be shared by our team after document verification. You'll receive complete payment instructions via email and WhatsApp.
+              <div className="bg-brand-white border border-brand-gray-200 rounded p-6 shadow-sm">
+                <h4 className="font-extrabold text-brand-black mb-3 uppercase">Payment Information</h4>
+                <p className="text-sm text-brand-gray-600 mb-4 font-medium">
+                  To reserve your pincode, an advance payment is required. The remaining amount must be paid within 5-8 days from the booking date.
                 </p>
-                <ul className="space-y-2 text-sm text-gray-700">
+                <ul className="space-y-2 text-sm text-brand-gray-600 font-medium mb-6">
                   <li className="flex items-start space-x-2">
                     <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
                     <span>Secure payment gateway</span>
@@ -363,36 +411,36 @@ export default function Apply() {
                   </li>
                   <li className="flex items-start space-x-2">
                     <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-                    <span>Instant franchise activation after payment</span>
+                    <span>Activation subject to final approval</span>
                   </li>
                 </ul>
+                <label className="flex items-start space-x-3 cursor-pointer bg-brand-gray-50 p-4 border border-brand-gray-200 rounded">
+                  <input
+                    type="checkbox"
+                    name="investmentReady"
+                    checked={formData.investmentReady}
+                    onChange={handleInputChange}
+                    className="mt-1 w-5 h-5 text-brand-red"
+                    required
+                  />
+                  <span className="text-brand-black font-bold text-sm">
+                    I confirm that I understand the payment terms and conditions, and I am ready to pay the advance amount to reserve the pincode.
+                  </span>
+                </label>
               </div>
-              <label className="flex items-start space-x-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  name="investmentReady"
-                  checked={formData.investmentReady}
-                  onChange={handleInputChange}
-                  className="mt-1 w-5 h-5 text-indigo-600"
-                  required
-                />
-                <span className="text-gray-700">
-                  I confirm that I am ready to make the investment and understand the payment terms and conditions.
-                </span>
-              </label>
             </div>
           )}
 
           {currentStep === 5 && (
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold mb-6">Upload Documents</h2>
-              <p className="text-gray-600 mb-6">Please upload the following documents for verification</p>
+              <h2 className="text-2xl font-extrabold mb-6 uppercase">Upload Documents</h2>
+              <p className="text-brand-gray-600 mb-6 font-medium">Please upload the following documents for verification (Optional at this stage)</p>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Aadhaar Card *</label>
-                  <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-indigo-500 transition-colors">
-                    <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                  <label className="block text-sm font-bold text-brand-black mb-2 uppercase">Aadhaar Card</label>
+                  <div className="bg-brand-white border-2 border-dashed border-brand-gray-300 rounded p-6 text-center hover:border-brand-red transition-colors">
+                    <Upload className="w-8 h-8 text-brand-gray-400 mx-auto mb-2" />
                     <input
                       type="file"
                       onChange={(e) => handleFileChange(e, 'aadhaar')}
@@ -400,16 +448,16 @@ export default function Apply() {
                       className="hidden"
                       id="aadhaar"
                     />
-                    <label htmlFor="aadhaar" className="cursor-pointer text-indigo-600 hover:text-indigo-700">
+                    <label htmlFor="aadhaar" className="cursor-pointer text-brand-red font-bold hover:text-brand-black transition-colors">
                       {formData.aadhaar ? formData.aadhaar.name : 'Click to upload Aadhaar Card'}
                     </label>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">PAN Card *</label>
-                  <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-indigo-500 transition-colors">
-                    <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                  <label className="block text-sm font-bold text-brand-black mb-2 uppercase">PAN Card</label>
+                  <div className="bg-brand-white border-2 border-dashed border-brand-gray-300 rounded p-6 text-center hover:border-brand-red transition-colors">
+                    <Upload className="w-8 h-8 text-brand-gray-400 mx-auto mb-2" />
                     <input
                       type="file"
                       onChange={(e) => handleFileChange(e, 'pan')}
@@ -417,16 +465,16 @@ export default function Apply() {
                       className="hidden"
                       id="pan"
                     />
-                    <label htmlFor="pan" className="cursor-pointer text-indigo-600 hover:text-indigo-700">
+                    <label htmlFor="pan" className="cursor-pointer text-brand-red font-bold hover:text-brand-black transition-colors">
                       {formData.pan ? formData.pan.name : 'Click to upload PAN Card'}
                     </label>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Passport Size Photo *</label>
-                  <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-indigo-500 transition-colors">
-                    <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                  <label className="block text-sm font-bold text-brand-black mb-2 uppercase">Passport Size Photo</label>
+                  <div className="bg-brand-white border-2 border-dashed border-brand-gray-300 rounded p-6 text-center hover:border-brand-red transition-colors">
+                    <Upload className="w-8 h-8 text-brand-gray-400 mx-auto mb-2" />
                     <input
                       type="file"
                       onChange={(e) => handleFileChange(e, 'photo')}
@@ -434,30 +482,30 @@ export default function Apply() {
                       className="hidden"
                       id="photo"
                     />
-                    <label htmlFor="photo" className="cursor-pointer text-indigo-600 hover:text-indigo-700">
+                    <label htmlFor="photo" className="cursor-pointer text-brand-red font-bold hover:text-brand-black transition-colors">
                       {formData.photo ? formData.photo.name : 'Click to upload Photo'}
                     </label>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-blue-50 rounded-xl p-6">
-                <h4 className="font-semibold text-blue-900 mb-2">Document Guidelines</h4>
-                <ul className="space-y-1 text-sm text-blue-800">
+              <div className="bg-brand-white border border-brand-gray-200 rounded p-6 shadow-sm">
+                <h4 className="font-extrabold text-brand-black mb-2 uppercase">Document Guidelines</h4>
+                <ul className="space-y-1 text-sm text-brand-gray-600 font-medium">
                   <li>• Documents should be clear and readable</li>
                   <li>• Accepted formats: JPG, PNG, PDF</li>
                   <li>• Maximum file size: 5MB per document</li>
-                  <li>• All documents are securely encrypted</li>
+                  <li>• You can also submit these documents later via email or WhatsApp</li>
                 </ul>
               </div>
             </div>
           )}
 
-          <div className="flex justify-between mt-8 pt-6 border-t">
+          <div className="flex justify-between mt-8 pt-6 border-t border-brand-gray-200">
             {currentStep > 1 && (
               <button
                 onClick={() => setCurrentStep(currentStep - 1)}
-                className="flex items-center space-x-2 px-6 py-3 border-2 border-gray-300 rounded-full font-semibold hover:border-indigo-500 hover:text-indigo-600 transition-all"
+                className="flex items-center space-x-2 px-6 py-3 border-2 border-brand-black rounded font-bold uppercase hover:bg-brand-black hover:text-brand-white transition-colors"
               >
                 <ChevronLeft className="w-5 h-5" />
                 <span>Previous</span>
@@ -466,7 +514,7 @@ export default function Apply() {
             {currentStep < 5 ? (
               <button
                 onClick={() => setCurrentStep(currentStep + 1)}
-                className="ml-auto flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all"
+                className="ml-auto flex items-center space-x-2 px-8 py-3 bg-brand-red text-brand-white rounded font-bold uppercase hover:bg-brand-black transition-colors"
               >
                 <span>Next Step</span>
                 <ChevronRight className="w-5 h-5" />
@@ -475,7 +523,7 @@ export default function Apply() {
               <button
                 onClick={handleSubmit}
                 disabled={loading}
-                className="ml-auto flex items-center space-x-2 px-8 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                className="ml-auto flex items-center space-x-2 px-8 py-3 bg-brand-red text-brand-white rounded font-bold uppercase hover:bg-brand-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <>
@@ -484,7 +532,7 @@ export default function Apply() {
                   </>
                 ) : (
                   <>
-                    <span>Submit Application</span>
+                    <span>Submit & Pay Advance</span>
                     <Check className="w-5 h-5" />
                   </>
                 )}

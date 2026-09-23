@@ -1,206 +1,220 @@
-import { Target, Eye, Award, Users, TrendingUp, Globe, Shield, Zap } from 'lucide-react';
+import { Building2, Users, Target, Globe, Network, MapPin, Briefcase, Zap, Shield, TrendingUp, Handshake, Store } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function About() {
-  const stats = [
-    { value: '1000+', label: 'Active Franchises', icon: Users, color: 'text-blue-600' },
-    { value: '500+', label: 'Cities Covered', icon: Globe, color: 'text-green-600' },
-    { value: '50K+', label: 'Daily Transactions', icon: TrendingUp, color: 'text-purple-600' },
-    { value: '₹10Cr+', label: 'Monthly Business', icon: Award, color: 'text-amber-600' }
-  ];
-
-  const values = [
-    {
-      icon: Target,
-      title: 'Our Mission',
-      description: 'To empower entrepreneurs across India by providing a comprehensive multi-service platform that enables financial independence and business growth.',
-      color: 'text-indigo-600',
-      bgColor: 'bg-indigo-100'
-    },
-    {
-      icon: Eye,
-      title: 'Our Vision',
-      description: 'To become India\'s most trusted and widespread multi-service franchise network, accessible in every pincode and serving millions daily.',
-      color: 'text-purple-600',
-      bgColor: 'bg-purple-100'
-    },
-    {
-      icon: Shield,
-      title: 'Our Values',
-      description: 'Integrity, transparency, and partner success drive everything we do. We believe in building long-term relationships based on trust and mutual growth.',
-      color: 'text-green-600',
-      bgColor: 'bg-green-100'
-    }
-  ];
-
-  const whyChoose = [
-    {
-      icon: Zap,
-      title: 'Proven Business Model',
-      description: '3+ years of successful operations with consistent franchise profitability',
-      color: 'text-yellow-600',
-      bgColor: 'bg-yellow-50'
-    },
-    {
-      icon: Users,
-      title: 'Comprehensive Support',
-      description: '24/7 technical and business support for all franchise partners',
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-50'
-    },
-    {
-      icon: TrendingUp,
-      title: 'High Returns',
-      description: 'Average ROI within 5-12 months with sustainable monthly income',
-      color: 'text-green-600',
-      bgColor: 'bg-green-50'
-    },
-    {
-      icon: Globe,
-      title: 'Wide Network',
-      description: 'Partner with leading brands like Flipkart, Swiggy, Zomato, and more',
-      color: 'text-purple-600',
-      bgColor: 'bg-purple-50'
-    },
-    {
-      icon: Award,
-      title: 'Training & Development',
-      description: 'Complete training program and ongoing skill development workshops',
-      color: 'text-red-600',
-      bgColor: 'bg-red-50'
-    },
-    {
-      icon: Shield,
-      title: 'Secure Platform',
-      description: 'Bank-grade security and reliable technology infrastructure',
-      color: 'text-indigo-600',
-      bgColor: 'bg-indigo-50'
-    }
-  ];
-
-  const timeline = [
-    { year: '2020', title: 'Foundation', desc: 'eLocal Store founded with a vision to digitize local services' },
-    { year: '2021', title: 'First 100', desc: 'Reached 100 franchise partners across 5 states' },
-    { year: '2022', title: 'Pan-India', desc: 'Expanded to 500+ locations nationwide' },
-    { year: '2023', title: 'Service Expansion', desc: 'Launched 65+ services across 10 categories' },
-    { year: '2024', title: 'Industry Leader', desc: '1000+ franchises with ₹10Cr+ monthly business volume' }
-  ];
-
   return (
-    <div className="pt-16">
-      <section className="bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">About eLocal Store</h1>
-          <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto">
-            Transforming local entrepreneurship through technology and innovation
-          </p>
-        </div>
-      </section>
-
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="pt-32 min-h-screen bg-brand-white">
+      {/* Hero Section */}
+      <section className="bg-brand-black text-brand-white py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-brand-red/5"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-4xl font-bold mb-6">Our Story</h2>
-              <p className="text-lg text-gray-700 mb-4">
-                eLocal Store was born from a simple yet powerful idea: to create a platform that enables every Indian to become an entrepreneur by providing access to multiple revenue-generating services under one roof.
-              </p>
-              <p className="text-lg text-gray-700 mb-4">
-                Starting in 2020, we've grown from a small team with a big dream to India's leading multi-service franchise network. Today, we serve thousands of franchise partners who collectively process over 50,000 transactions daily.
-              </p>
-              <p className="text-lg text-gray-700">
-                Our success is built on the success of our franchise partners. Every milestone we achieve is a testament to their hard work and our commitment to providing the best platform, support, and opportunities in the industry.
+              <h4 className="text-brand-red font-bold tracking-widest uppercase mb-4">About Us</h4>
+              <h1 className="text-5xl md:text-6xl font-extrabold mb-6 uppercase leading-tight">
+                Building A Connected <br />
+                <span className="text-brand-red">Local Service Network</span>
+              </h1>
+              <p className="text-xl text-brand-gray-300 font-medium mb-8">
+                Empowering entrepreneurs and transforming communities by bringing essential logistics and digital services directly to every neighborhood.
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-6">
-              {stats.map((stat, idx) => (
-                <div key={idx} className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 text-center hover:shadow-lg transition-all">
-                  <stat.icon className={`w-10 h-10 ${stat.color} mx-auto mb-3`} />
-                  <div className={`text-4xl font-bold mb-2 ${stat.color}`}>{stat.value}</div>
-                  <div className="text-gray-600">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-gradient-to-br from-indigo-50 to-purple-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Our Mission, Vision & Values</h2>
-            <p className="text-xl text-gray-600">What drives us every day</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {values.map((value, idx) => (
-              <div key={idx} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all">
-                <div className={`${value.bgColor} w-16 h-16 rounded-full flex items-center justify-center mb-6`}>
-                  <value.icon className={`w-8 h-8 ${value.color}`} />
-                </div>
-                <h3 className="text-2xl font-bold mb-4">{value.title}</h3>
-                <p className="text-gray-700">{value.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Why Choose eLocal Store?</h2>
-            <p className="text-xl text-gray-600">Built for your success from day one</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {whyChoose.map((reason, idx) => (
-              <div key={idx} className={`${reason.bgColor} rounded-2xl p-8 hover:shadow-lg transition-all`}>
-                <reason.icon className={`w-12 h-12 ${reason.color} mb-4`} />
-                <h3 className="text-xl font-bold mb-3">{reason.title}</h3>
-                <p className="text-gray-700">{reason.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-gray-900 text-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Our Journey</h2>
-            <p className="text-xl text-white/80">Milestones that shaped our growth</p>
-          </div>
-          <div className="relative">
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-indigo-500"></div>
-            <div className="space-y-12">
-              {timeline.map((item, idx) => (
-                <div key={idx} className={`flex items-center ${idx % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
-                  <div className={`w-1/2 ${idx % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
-                    <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 hover:bg-white/20 transition-all">
-                      <div className="text-3xl font-bold text-indigo-400 mb-2">{item.year}</div>
-                      <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                      <p className="text-white/80">{item.desc}</p>
-                    </div>
+            <div className="relative">
+              <div className="bg-brand-white/10 backdrop-blur-sm border border-brand-white/20 p-8 rounded-xl relative">
+                <div className="absolute -top-6 -right-6 w-24 h-24 bg-brand-red rounded-full opacity-50 blur-2xl"></div>
+                <Building2 className="w-24 h-24 text-brand-red mb-6" />
+                <h3 className="text-2xl font-bold uppercase mb-2">One Franchise.</h3>
+                <h3 className="text-2xl font-bold text-brand-red uppercase">Multiple Services.</h3>
+                <div className="mt-8 grid grid-cols-2 gap-4 border-t border-brand-white/20 pt-6">
+                  <div>
+                    <p className="text-4xl font-extrabold text-brand-white mb-1">65+</p>
+                    <p className="text-brand-gray-400 text-xs font-bold uppercase tracking-wider">Services</p>
                   </div>
-                  <div className="w-8 h-8 bg-indigo-500 rounded-full border-4 border-gray-900 z-10"></div>
-                  <div className="w-1/2"></div>
+                  <div>
+                    <p className="text-4xl font-extrabold text-brand-white mb-1">0%</p>
+                    <p className="text-brand-gray-400 text-xs font-bold uppercase tracking-wider">Royalty</p>
+                  </div>
                 </div>
-              ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+      {/* Who We Are & Mission/Vision */}
+      <section className="py-24 bg-brand-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <h2 className="text-4xl font-extrabold uppercase mb-6 text-brand-black">Who We Are</h2>
+              <div className="w-16 h-1 bg-brand-red mb-8"></div>
+              <p className="text-lg text-brand-gray-600 font-medium mb-6 leading-relaxed">
+                eLocal Store Private Limited is a pioneering aggregator platform designed to bridge the gap between essential services and local communities. We operate on a unique "One Platform, Multiple Services" model.
+              </p>
+              <p className="text-lg text-brand-gray-600 font-medium leading-relaxed">
+                By partnering with local entrepreneurs, we are establishing a nationwide network of service points that offer everything from logistics and e-commerce delivery to travel bookings, banking, and government citizen services.
+              </p>
+            </div>
+            
+            <div className="space-y-8">
+              <div className="bg-brand-gray-50 border-l-4 border-brand-red p-8 rounded shadow-sm">
+                <div className="flex items-center space-x-4 mb-4">
+                  <Target className="w-8 h-8 text-brand-red" />
+                  <h3 className="text-2xl font-extrabold uppercase text-brand-black">Our Mission</h3>
+                </div>
+                <p className="text-brand-gray-600 font-medium leading-relaxed">
+                  To empower local entrepreneurs with a comprehensive digital and logistics infrastructure, enabling them to provide essential, high-quality services to their communities while building a profitable, sustainable business.
+                </p>
+              </div>
+
+              <div className="bg-brand-gray-50 border-l-4 border-brand-black p-8 rounded shadow-sm">
+                <div className="flex items-center space-x-4 mb-4">
+                  <Globe className="w-8 h-8 text-brand-black" />
+                  <h3 className="text-2xl font-extrabold uppercase text-brand-black">Our Vision</h3>
+                </div>
+                <p className="text-brand-gray-600 font-medium leading-relaxed">
+                  To become the largest and most trusted decentralized service network in India, ensuring that no citizen is left behind in the digital revolution, regardless of their geographic location.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Business Model */}
+      <section className="py-24 bg-brand-gray-50 border-y border-brand-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-extrabold uppercase mb-4 text-brand-black">Our Business Model</h2>
+            <div className="w-24 h-1 bg-brand-red mx-auto mb-8"></div>
+            <p className="text-xl text-brand-gray-600 max-w-3xl mx-auto font-medium">
+              We provide the technology, the brand, and the partnerships. You provide the local expertise and operations.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-brand-white p-8 rounded border border-brand-gray-200 text-center hover:border-brand-red transition-colors shadow-sm">
+              <div className="bg-brand-gray-50 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-6">
+                <Briefcase className="w-8 h-8 text-brand-black" />
+              </div>
+              <h3 className="text-xl font-extrabold uppercase text-brand-black mb-4">B2B2C Approach</h3>
+              <p className="text-brand-gray-600 font-medium">
+                We aggregate services from major B2B providers (logistics, banks, government portals) and deliver them to consumers (C) through our localized business partners (B).
+              </p>
+            </div>
+
+            <div className="bg-brand-white p-8 rounded border border-brand-red relative text-center shadow-lg transform md:-translate-y-4">
+              <div className="absolute top-0 right-0 bg-brand-red text-brand-white text-xs font-bold px-3 py-1 uppercase tracking-widest rounded-bl">Core Advantage</div>
+              <div className="bg-brand-red/10 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-6">
+                <Handshake className="w-8 h-8 text-brand-red" />
+              </div>
+              <h3 className="text-xl font-extrabold uppercase text-brand-black mb-4">Zero Royalty Structure</h3>
+              <p className="text-brand-gray-600 font-medium">
+                Unlike traditional franchises that take a monthly cut of your gross sales, eLocal Store operates on a 0% royalty model. You keep the profits you earn.
+              </p>
+            </div>
+
+            <div className="bg-brand-white p-8 rounded border border-brand-gray-200 text-center hover:border-brand-red transition-colors shadow-sm">
+              <div className="bg-brand-gray-50 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-6">
+                <MapPin className="w-8 h-8 text-brand-black" />
+              </div>
+              <h3 className="text-xl font-extrabold uppercase text-brand-black mb-4">Pincode Exclusivity</h3>
+              <p className="text-brand-gray-600 font-medium">
+                We protect your investment by ensuring territorial exclusivity. Only one franchise is approved per pincode, preventing internal competition.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The Ecosystem */}
+      <section className="py-24 bg-brand-black text-brand-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-brand-red/5"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-extrabold uppercase mb-4">The eLocal Ecosystem</h2>
+            <div className="w-24 h-1 bg-brand-red mx-auto"></div>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+              <div className="bg-brand-white/10 border border-brand-white/20 p-6 rounded backdrop-blur-sm">
+                <Users className="w-10 h-10 text-brand-red mx-auto mb-4" />
+                <h4 className="font-bold uppercase tracking-wider mb-2">Customers</h4>
+                <p className="text-sm text-brand-gray-300">Accessing essential services locally</p>
+              </div>
+              <div className="bg-brand-white/10 border border-brand-white/20 p-6 rounded backdrop-blur-sm">
+                <Store className="w-10 h-10 text-brand-red mx-auto mb-4" />
+                <h4 className="font-bold uppercase tracking-wider mb-2">Partners</h4>
+                <p className="text-sm text-brand-gray-300">Operating exclusive franchise zones</p>
+              </div>
+              <div className="bg-brand-white/10 border border-brand-white/20 p-6 rounded backdrop-blur-sm">
+                <Network className="w-10 h-10 text-brand-red mx-auto mb-4" />
+                <h4 className="font-bold uppercase tracking-wider mb-2">Providers</h4>
+                <p className="text-sm text-brand-gray-300">Supplying backend digital services</p>
+              </div>
+              <div className="bg-brand-white/10 border border-brand-white/20 p-6 rounded backdrop-blur-sm">
+                <Building2 className="w-10 h-10 text-brand-red mx-auto mb-4" />
+                <h4 className="font-bold uppercase tracking-wider mb-2">Platform</h4>
+                <p className="text-sm text-brand-gray-300">Connecting all ecosystem layers</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why eLocal Store */}
+      <section className="py-24 bg-brand-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-extrabold uppercase mb-4 text-brand-black">Why Choose eLocal Store?</h2>
+            <div className="w-24 h-1 bg-brand-red mx-auto"></div>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              { icon: Zap, title: "Ready-to-Use Platform", desc: "Start operating from day one with our fully integrated technological dashboard." },
+              { icon: Shield, title: "Trusted Brand", desc: "Leverage a recognized name that commands trust in the local community." },
+              { icon: TrendingUp, title: "High Demand Services", desc: "Offer 65+ services that people need and use on a daily basis." },
+              { icon: Briefcase, title: "Low Overhead", desc: "Run a high-volume business with manageable operational costs." },
+              { icon: Users, title: "Training Support", desc: "Receive comprehensive onboarding and continuous operational guidance." },
+              { icon: MapPin, title: "Protected Territory", desc: "Operate with peace of mind in your exclusive pincode zone." }
+            ].map((feature, i) => (
+              <div key={i} className="flex items-start space-x-4 p-6 border border-brand-gray-200 rounded hover:shadow-md hover:border-brand-red transition-all">
+                <div className="bg-brand-gray-50 p-3 rounded shrink-0">
+                  <feature.icon className="w-6 h-6 text-brand-black" />
+                </div>
+                <div>
+                  <h4 className="font-bold uppercase text-brand-black mb-2">{feature.title}</h4>
+                  <p className="text-sm font-medium text-brand-gray-600">{feature.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-24 bg-brand-gray-50 border-t border-brand-gray-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">Join Our Success Story</h2>
-          <p className="text-xl mb-8 text-white/90">
-            Be part of India's fastest-growing franchise network and write your own success story
+          <h2 className="text-4xl font-extrabold uppercase mb-6 text-brand-black">Join Our Growing Network</h2>
+          <p className="text-xl text-brand-gray-600 mb-10 font-medium">
+            Be the digital and logistics hub for your local community. Secure your territory today.
           </p>
-          <a
-            href="/apply"
-            className="inline-block bg-white text-indigo-600 px-12 py-4 rounded-full font-semibold text-lg hover:shadow-2xl transform hover:scale-105 transition-all"
-          >
-            Apply for Franchise
-          </a>
+          <div className="flex flex-wrap justify-center gap-6">
+            <Link
+              to="/apply"
+              className="bg-brand-red text-brand-white px-10 py-4 rounded font-bold uppercase tracking-widest hover:bg-brand-black transition-colors"
+            >
+              Apply Now
+            </Link>
+            <Link
+              to="/contact"
+              className="border-2 border-brand-black text-brand-black px-10 py-4 rounded font-bold uppercase tracking-widest hover:bg-brand-black hover:text-brand-white transition-colors"
+            >
+              Contact Us
+            </Link>
+          </div>
         </div>
       </section>
     </div>

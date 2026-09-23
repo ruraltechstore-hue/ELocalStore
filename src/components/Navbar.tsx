@@ -17,7 +17,7 @@ export default function Navbar() {
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Franchise Models', path: '/franchise' },
+    { name: 'Franchise Models & Plans', path: '/franchise-models' },
     { name: 'Services', path: '/services' },
     { name: 'About Us', path: '/about' },
     { name: 'Contact', path: '/contact' },
@@ -25,37 +25,31 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-lg py-3' : 'bg-white/95 backdrop-blur-sm py-4'
+      className={`fixed w-full z-50 transition-all duration-300 border-b border-brand-gray-200 ${
+        isScrolled ? 'bg-brand-white shadow-md py-1' : 'bg-brand-white/95 backdrop-blur-sm py-2'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
-
-          {/* Logo + Brand */}
+          {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-
             <img
               src="/logo-C_KVBLWW.png"
               alt="eLocal Store Logo"
-              className="w-10 h-10 object-contain"
+              className="w-32 h-auto object-contain"
             />
-
-            <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-green-500 bg-clip-text text-transparent">
-              eLocal Store
-            </span>
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-8">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`transition-colors ${
+                className={`transition-colors text-sm font-semibold ${
                   location.pathname === link.path
-                    ? 'text-indigo-600 font-semibold'
-                    : 'text-gray-700 hover:text-indigo-600'
+                    ? 'text-brand-red'
+                    : 'text-brand-black hover:text-brand-red'
                 }`}
               >
                 {link.name}
@@ -64,7 +58,7 @@ export default function Navbar() {
 
             <Link
               to="/apply"
-              className="bg-gradient-to-r from-indigo-600 to-indigo-700 text-white px-6 py-2 rounded-full hover:shadow-lg transform hover:scale-105 transition-all"
+              className="bg-brand-red text-brand-white px-6 py-2 rounded font-bold hover:bg-brand-black hover:text-brand-white transition-colors uppercase tracking-wide"
             >
               Apply Now
             </Link>
@@ -73,25 +67,24 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-gray-700"
+            className="lg:hidden text-brand-black hover:text-brand-red"
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
-
         </div>
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden mt-4 pb-4 space-y-3">
+          <div className="lg:hidden mt-4 pb-4 space-y-3 bg-brand-white">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
-                className={`block py-2 ${
+                className={`block py-2 text-sm font-bold ${
                   location.pathname === link.path
-                    ? 'text-indigo-600 font-semibold'
-                    : 'text-gray-700'
+                    ? 'text-brand-red'
+                    : 'text-brand-black'
                 }`}
               >
                 {link.name}
@@ -101,7 +94,7 @@ export default function Navbar() {
             <Link
               to="/apply"
               onClick={() => setIsOpen(false)}
-              className="block bg-gradient-to-r from-indigo-600 to-indigo-700 text-white px-6 py-2 rounded-full text-center"
+              className="block bg-brand-red text-brand-white px-6 py-3 rounded text-center font-bold uppercase tracking-wide"
             >
               Apply Now
             </Link>
