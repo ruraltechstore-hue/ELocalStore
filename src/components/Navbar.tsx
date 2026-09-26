@@ -20,6 +20,7 @@ export default function Navbar() {
     { name: 'Franchise Models & Plans', path: '/franchise-models' },
     { name: 'Services', path: '/services' },
     { name: 'About Us', path: '/about' },
+    { name: 'Careers', path: '/careers' },
     { name: 'Contact', path: '/contact' },
   ];
 

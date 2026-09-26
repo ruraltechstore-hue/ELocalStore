@@ -30,6 +30,7 @@ export default function Footer() {
               <li><Link to="/franchise-models" className="text-brand-gray-300 hover:text-brand-red transition-colors">Franchise Models</Link></li>
               <li><Link to="/services" className="text-brand-gray-300 hover:text-brand-red transition-colors">Services</Link></li>
               <li><Link to="/about" className="text-brand-gray-300 hover:text-brand-red transition-colors">About Us</Link></li>
+              <li><Link to="/careers" className="text-brand-gray-300 hover:text-brand-red transition-colors">Careers</Link></li>
               <li><Link to="/contact" className="text-brand-gray-300 hover:text-brand-red transition-colors">Contact</Link></li>
               <li><Link to="/apply" className="text-brand-gray-300 hover:text-brand-red transition-colors">Apply Now</Link></li>
               <li><Link to="/reserve-pincode" className="text-brand-gray-300 hover:text-brand-red transition-colors">Reserve Pincode</Link></li>

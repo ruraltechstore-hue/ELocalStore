@@ -10,6 +10,7 @@ import Services from './pages/Services';
 import Apply from './pages/Apply';
 import ReservePincode from './pages/ReservePincode';
 import About from './pages/About';
+import Careers from './pages/Careers';
 import Contact from './pages/Contact';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
@@ -35,6 +36,9 @@ function ScrollToTop() {
         break;
       case '/about':
         document.title = `About Us | ${baseTitle}`;
+        break;
+      case '/careers':
+        document.title = `Careers | ${baseTitle}`;
         break;
       case '/contact':
         document.title = `Contact Us | ${baseTitle}`;
@@ -77,6 +81,7 @@ function App() {
             <Route path="/apply" element={<Apply />} />
             <Route path="/reserve-pincode" element={<ReservePincode />} />
             <Route path="/about" element={<About />} />
+            <Route path="/careers" element={<Careers />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
